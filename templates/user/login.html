@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p class = "fs-4 fw-normal">Login</p>
+
+{% load crispy_forms_tags %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" class="btn btn-secondary mt-2" value="Login">
+</form>
+
+<p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+
+{% endblock content %}

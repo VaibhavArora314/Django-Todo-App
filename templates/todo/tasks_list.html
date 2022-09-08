@@ -1,0 +1,84 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+    <div class="row my-2 d-flex justify-content-between">
+        <span class="col col-md-9">
+            <form class="input-group mb-3" action="" method="get">
+                <input type="search" class="form-control" name="search" value={{search_input}}>
+                <input type="submit" class="input-group-text" value="Search" >
+            </form>
+        </span>
+        <span class="col col-md-auto offset-md-1">
+            <a href="{% url 'task-create' %}" class="text-dark text-decoration-none"><button type="submit" class="btn btn-light">Add Task</button></a>
+        </span>
+    </div>
+    <span class="">
+    </span>
+    
+    <p>You have {{count_incompleted}} incompleted tasks</p>
+    
+    {% if tasks %}
+        {% if count_incompleted > 0 %}
+            <div class="d-grid gap-3 mb-3 mt-1">
+                {% for task in incompleted_tasks %}
+                    <div class="p-2 bg-light border d-flex justify-content-between">
+                        <p class="text-break col-10">{{task.title}}</p>
+                        <span>
+                            <a class = "text-decoration-none text-muted" href="{% url 'task-edit' task.id %}">
+                                <button class="btn btn-outline-info btn-sm" type="submit">
+                                    <i class="fa fa-solid fa-pen"></i>
+                                </button>
+                            </a>
+                            <a href="{% url 'task-mark-complete' task.id %}" class="text-muted text-decoration-none ">
+                                <button class="btn btn-outline-success btn-sm" type="submit">
+                                    <i class="fa fa-solid fa-check"></i>
+                                </button>
+                            </a>
+                            <a href="{% url 'task-delete' task.id %}" class="text-muted text-decoration-none ">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">
+                                    <i class="fa fa-regular fa-trash-can"></i>
+                                </button>
+                            </a>
+                        </span>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if count_completed > 0 %}
+            <p class="py-0">Completed Tasks:</p>
+            <div class="d-grid gap-3 mb-3 mt-1">
+                {% for task in completed_tasks %}
+                    <div class="p-2 bg-light border d-flex justify-content-between">
+                        <p class="text-break col-10 text-decoration-line-through">{{task.title}}</p>
+                        <span>
+                            <a class = "text-decoration-none text-muted" href="{% url 'task-edit' task.id %}">
+                                <button class="btn btn-outline-info btn-sm" type="submit">
+                                    <i class="fa fa-solid fa-pen"></i>
+                                </button>
+                            </a>
+                            <a href="{% url 'task-mark-incomplete' task.id %}" class="text-muted text-decoration-none ">
+                                <button class="btn btn-outline-warning btn-sm" type="submit">
+                                    <i class="fa fa-solid fa-xmark mx-1"></i>
+                                </button>
+                            </a>
+                            <a href="{% url 'task-delete' task.id %}" class="text-muted text-decoration-none ">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">
+                                    <i class="fa fa-regular fa-trash-can"></i>
+                                </button>
+                            </a>
+                        </span>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+    <p>No Tasks</p>
+    {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

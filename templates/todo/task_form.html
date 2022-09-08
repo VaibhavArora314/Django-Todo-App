@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p class = "fs-4 fw-normal">{% if new_task %}Create New Task{% else %}Update Task{% endif %}</p>
+<a href="{% url 'tasks' %}">
+    <button type="submit" class="btn btn-primary">Go back <i class="fa fa-solid fa-arrow-left"></i></button>
+</a>
+{% load crispy_forms_tags %}
+<form action="" method="post" class="my-3">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content %}
